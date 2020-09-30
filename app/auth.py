@@ -18,6 +18,8 @@ def signup_post():
     name = request.form.get('name')
     password = request.form.get('password')
 
+    # print(email, name, password)
+
     user = User.query.filter_by(email=email).first()
 
     if user:
