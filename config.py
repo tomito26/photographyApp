@@ -2,6 +2,7 @@ class Config:
     '''
     General configuration parent class
     '''
+    API_KEY = '18506704-0831dbdfabcb3e9a4d1c92a1b'
     pass
 
 
@@ -24,4 +25,10 @@ class DevConfig(Config):
         Config: The parent configuration class with General configuration settings
     '''
 
+
     DEBUG = True
+
+config_options = {
+'development':DevConfig,
+'production':ProdConfig
+}
