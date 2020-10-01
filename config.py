@@ -1,8 +1,10 @@
+import os
 class Config:
     '''
     General configuration parent class
     '''
     API_KEY = '18506704-0831dbdfabcb3e9a4d1c92a1b'
+    BASE_URL = 'https://pixabay.com/api/?key={}&image_type={}'
     pass
 
 
