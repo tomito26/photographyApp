@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% import 'macros.html' as macro%}
+
+{% block content %}
+<div class="container pt-5">
+    <div class="row">
+        {{macro.displayImages(nature)}}
+    </div>
+</div>
+
+{% endblock %}

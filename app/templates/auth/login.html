@@ -1,38 +1,23 @@
-{% extends "base.html" %} {% block head %} {{ super() }}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename= 'extended_beauty.css') }}"
-/>
-{% endblock %} {% block content %}
-<div class="col-md-4 col-md-offset-4">
-  <form method="POST" action="/login">
-    <h2>Log In</h2>
-    <div class="form-group">
-      <label for="email">Email address</label>
-      <input
-        type="email"
-        class="form-control"
-        id="email"
-        name="email"
-        aria-describedby="emailHelp"
-        placeholder="Enter email"
-      />
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf%}
+
+{% block content %}
+<div class="container pt-5">
+  <div class="row pb-5">
+    <div class="col-lg-8 col-md-10 mx-auto pb-5">
+      <!--Flash message -->
+      {% for message in get_flashed_messages() %}
+      <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+      </div>
+      {% endfor %}
+      <!-- Login form -->
+      {{wtf.quick_form(login_form)}}
+      <h2 class=""> Don't have an account? <a href="{{url_for('auth.register')}}"><span class="text-primary">Sign
+            up here</span></a></h2>
     </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input
-        type="password"
-        class="form-control"
-        id="password"
-        name="password"
-        placeholder="Password"
-      />
-    </div>
-    <div class="form-check">
-      <input type="checkbox" class="form-check-input" id="remember" name="remember">
-      <label class="form-check-label" for="remember">Remember Me</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Log In</button>
-  </form>
+  </div>
 </div>
-{% endblock %}
+
+{% endblock  %}

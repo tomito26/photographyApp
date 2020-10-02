@@ -7,6 +7,14 @@ from . import login_manager
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+
+class Image:
+    def __init__(self, id, webformaturl):
+        self.id = id
+        self.webformaturl = webformaturl
+
+
 class User(UserMixin,db.Model):
     __tablename__ = 'users'
 
@@ -16,9 +24,9 @@ class User(UserMixin,db.Model):
     email = db.Column(db.String(255),unique=True,index=True)
     password_hash=db.Column(db.String(255))
     bio=db.Column(db.String(255))
-    profile_pic_path=db.Column(db.String)
+    profile_pic_path=db.Column(db.String())
     comment = db.relationship('Comment',backref='user',lazy='dynamic')
-    
+
     @property
     def password(self):
         raise AttributeError('You cannot read the password attribute')
@@ -41,3 +49,26 @@ class Role(db.Model):
 
     def __repr__(self):
         return f'User{self.name}'
+
+
+class Comment(db.Model):
+
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer, primary_key=True)
+    comment = db.Column(db.String)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    posted_date = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def save_comments(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comments(cls, id):
+        comments = Comment.query.filter_by(user_idd=id).all()
+        return comments
+
+    @classmethod
+    def clear_comments(cls):
+        Comment.all_comments.clear

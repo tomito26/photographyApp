@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">PhotoWeb</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarNav">
+        <ul class="navbar-nav ml-auto ">
+            <li class="nav-item active pr-5">
+                <a class="nav-link" href="{{url_for('main.index')}}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item pr-5">
+                <a class="nav-link" href="{{url_for('main.nature')}}">Nature Photography</a>
+            </li>
+            <li class="nav-item pr-5">
+                <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item pr-5">
+                <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+       
+            {% if current_user.is_authenticated %}
+            <!-- <li style="color:white;padding:15px;">{{current_user.username}}</li> -->
+        
+            <li class="dropdown"><a href="#" class="dropdown-toggle text-light" data-toggle="dropdown"><i
+                        class="fa fa-user"></i><strong class="ml-2">Welcome, {{current_user.username}}</strong> <b
+                        class="caret"></b></a>
+                <ul class="dropdown-menu bg-dark text-center">
+        
+                    <li><a href="{{url_for('main.profile',uname=current_user.username)}} " class="text-light "><i
+                                class="icon-envelope"></i><strong>Your profile</strong></a></li>
+                    <li class="divider"></li>
+                    <div class="dropdown-divider"></div>
+                    <li><a href="{{url_for('auth.logout')}}" class="text-light "><i
+                                class="fa fa-sign-out mr-2"></i><strong>Logout</strong></a></li>
+                </ul>
+            </li>
+            {% else %}
+            <li><a href="{{url_for('auth.login')}}" class="text-light"><i class="fa fa-sign-in mr-2"></i><strong>Sign
+                        In</strong></a></li>
+            {%endif%}
+        </ul>
+    </div>
+</nav>

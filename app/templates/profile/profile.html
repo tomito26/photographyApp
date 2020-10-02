@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="overlay"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="page-heading">
+                <h1>Your profile page</h1>
+                <span class="subheading">feel free to edit it!</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="container pt-5">
+    <div class="row pb-5">
+        <div class="col-lg- col-md-4 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h1> {{user.username| capitalize}} </h1>
+                </div>
+                <div class="card-title">
+                    {% if user.profile_pic_path %}
+                    <img src="{{user.profile_pic_path}}"
+                        class="rounded-circle card-image-top img-fluid" alt="" class="img-thumbnail"
+                        style='height:100px;'>
+                    {%else%}
+                    <p>No profile picture</p>
+                    {% endif %}
+
+                    {% if user == current_user %}
+
+                    <form action="{{url_for('main.update_pic',uname=user.username)}}" method="post"
+                        enctype="multipart/form-data">
+                        <input type="file" name="photo" class="form-control" required>
+                        <input type="submit">
+                    </form>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <h3> {{user.username| capitalize}} </h3>
+                    <hr>
+                    <!--Displaying user bio-->
+                    {% if user.bio %}
+                    <p> {{user.bio}}</p>
+                    {%else%}
+                    <p> {{user.username| capitalize}} has no bio </p>
+                    {% endif %}
+                    <hr>
+                    {% if user == current_user %}
+                    <a class="btn-primary" href="{{url_for('main.update_profile',uname=user.username)}}">Edit
+                        profile</a>
+                    {% endif %}
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

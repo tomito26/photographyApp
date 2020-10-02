@@ -1,0 +1,9 @@
+{% macro displayImages(image_list)  %}
+    {% for image_item in image_list %}
+        <div class="col-md-4 p-3">
+            <div class="card">
+                <img src="{{image_item.webformaturl}}" alt="" class="img-fluid">
+            </div>
+        </div>
+    {% endfor %}
+{% endmacro %}

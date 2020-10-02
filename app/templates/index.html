@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% import 'macros.html' as macro%}
+
+{% block content %}
+
+    <div class="overlay pt-5">
+        <div class="pt-5"></div>
+    </div>
+    <div class="container pt-5">
+        <form class="pt-5 d-flex">
+            <input type="text" name="image_query" placeholder="Search for an Image" class="form-control w-75">
+            <input type="submit" value="Submit" class=" btn-dark">
+        </form>
+    </div>
+    <div class="container pt-5">
+        <div class="row pt-5">
+            {{macro.displayImages(urban)}}
+        </div>
+    </div>
+
+{% endblock %}
