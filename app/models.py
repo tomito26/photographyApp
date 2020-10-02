@@ -25,7 +25,7 @@ class User(UserMixin,db.Model):
     password_hash=db.Column(db.String(255))
     bio=db.Column(db.String(255))
     profile_pic_path=db.Column(db.String())
-    comment = db.relationship('Comment',backref='user',lazy='dynamic')
+    comment = db.relationship('Comments',backref='user',lazy='dynamic')
 
     @property
     def password(self):
@@ -51,13 +51,13 @@ class Role(db.Model):
         return f'User{self.name}'
 
 
-class Comment(db.Model):
+class Comments(db.Model):
 
     __tablename__ = 'comments'
 
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.String)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    users_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     posted_date = db.Column(db.DateTime, default=datetime.utcnow)
 
     def save_comments(self):
@@ -66,9 +66,9 @@ class Comment(db.Model):
 
     @classmethod
     def get_comments(cls, id):
-        comments = Comment.query.filter_by(user_idd=id).all()
+        comments = Comments.query.filter_by(blog_id=id).all()
         return comments
 
     @classmethod
     def clear_comments(cls):
-        Comment.all_comments.clear
+        Comments.all_comments.clear
