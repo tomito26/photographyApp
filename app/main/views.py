@@ -12,6 +12,7 @@ import cloudinary.uploader
 import cloudinary.api
 
 @main.route('/')
+@login_required
 def index():
     '''
     Function that returns index page and its contents
@@ -27,17 +28,21 @@ def index():
         return redirect(url_for('main.search',image_name=search_image))
     else:
         return render_template('index.html', people=people,title=title,nature=nature,urban=urban)
+
 @main.route('/nature')
+@login_required
 def nature():
     nature = get_images('nature')
     return render_template('nature.html',nature=nature)
 
 @main.route('/shoots')
+@login_required
 def shoots():
     modern = get_images('people')
     return render_template('urban.html',modern=modern)
 
 @main.route('/product')
+@login_required
 def product():
     product_shoots = get_images('products')
     return render_template('product.html',product_shoots=product_shoots)
