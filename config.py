@@ -23,6 +23,11 @@ class Config:
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
 
 
+    #simple mde configurations
+    SIMPLEMDE_JS_IIFE = True
+    SIMPLEMDE_USE_CDN = True
+
+
 class ProdConfig(Config):
     '''
     Production  configuration child class
@@ -30,8 +35,8 @@ class ProdConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-    pass
-
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
+    DEBUG = False
 class TestConfig(Config):
     pass
 
@@ -42,7 +47,7 @@ class DevConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
     DEBUG = True
 
 config_options = {
